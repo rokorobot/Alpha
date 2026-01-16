@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { client, urlFor } from "@/lib/sanity";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 // Define the Project interface
 interface Project {
@@ -7,19 +9,35 @@ interface Project {
   title: string;
   category: string;
   status: string;
-  mainImage: any;
+  mainImage: string;
 }
 
 // Fetch data directly in the component (Server Component)
 async function getProjects() {
-  const query = `*[_type == "project"] | order(_createdAt asc) {
-    _id,
-    title,
-    category,
-    status,
-    mainImage
-  }`;
-  return client.fetch(query);
+  const projectsDirectory = path.join(process.cwd(), 'content/projects');
+
+  // Create directory if it doesn't exist to prevent errors
+  if (!fs.existsSync(projectsDirectory)) {
+    return [];
+  }
+
+  const filenames = fs.readdirSync(projectsDirectory);
+
+  const projects = filenames.map((filename) => {
+    const filePath = path.join(projectsDirectory, filename);
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data } = matter(fileContents);
+
+    return {
+      _id: filename.replace('.md', ''),
+      title: data.title,
+      category: data.category,
+      status: data.status,
+      mainImage: data.mainImage,
+    } as Project;
+  });
+
+  return projects;
 }
 
 export default async function Home() {
@@ -111,7 +129,7 @@ export default async function Home() {
               <div className="card-image h-[400px]">
                 {project.mainImage && (
                   <Image
-                    src={urlFor(project.mainImage).width(400).url()}
+                    src={project.mainImage}
                     alt={project.title}
                     fill
                     style={{ objectFit: "cover", opacity: 0.8 }}
