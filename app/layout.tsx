@@ -9,8 +9,8 @@ const shareTechMono = Share_Tech_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ISC // ARTIST PORTFOLIO",
-  description: "Industrial Signal Core Artist Portfolio",
+  title: "ROKOROBO",
+  description: "RokoRobo Industrial Signal Core Portfolio",
 };
 
 export default function RootLayout({
