@@ -139,7 +139,7 @@ export default async function Home() {
             <a href="https://www.tiktok.com/@rokorobotic" target="_blank" className="glitch-link">
               NET_TIKTOK
             </a>
-            <a href="#" className="glitch-link">
+            <a href="https://soundcloud.com/rokorobo" target="_blank" className="glitch-link">
               SOUND_CLOUD
             </a>
           </div>
