@@ -2,6 +2,7 @@ import Image from "next/image";
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import ProjectGrid from './components/ProjectGrid';
 
 // Define the Project interface
 interface Project {
@@ -10,6 +11,7 @@ interface Project {
   category: string;
   status: string;
   mainImage: string;
+  projectVideo?: string;
 }
 
 // Fetch data directly in the component (Server Component)
@@ -34,6 +36,7 @@ async function getProjects() {
       category: data.category,
       status: data.status,
       mainImage: data.mainImage,
+      projectVideo: data.projectVideo,
     } as Project;
   });
 
@@ -118,48 +121,8 @@ export default async function Home() {
         <span>SECURE_ACCESS</span>
       </div>
 
-      <div className="container projects-grid">
-        {projects.length > 0 ? (
-          projects.map((project, index) => (
-            <div key={project._id} className="project-card">
-              <div className="card-header">
-                <span>FILE_0{index + 1}</span>
-                <span>[{project.status || "UNKNOWN"}]</span>
-              </div>
-              <div className="card-image h-[400px]">
-                {project.mainImage && (
-                  <Image
-                    src={project.mainImage}
-                    alt={project.title}
-                    fill
-                    style={{ objectFit: "cover", opacity: 0.8 }}
-                  />
-                )}
-                <div className="crosshair"></div>
-              </div>
-              <div className="card-footer">
-                <h3>{project.title}</h3>
-                <p>{project.category}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          // Fallback if no projects exist yet
-          <div className="project-card">
-            <div className="card-header">
-              <span>SYSTEM_MSG</span>
-              <span>[EMPTY]</span>
-            </div>
-            <div className="card-image h-[400px]">
-              <div className="crosshair"></div>
-            </div>
-            <div className="card-footer">
-              <h3>NO_DATA_FOUND</h3>
-              <p>PLEASE INITIALIZE DATABASE</p>
-            </div>
-          </div>
-        )}
-      </div>
+      <ProjectGrid projects={projects} />
+
 
       {/* FOOTER / CONTACT */}
       <div className="container footer-section">
