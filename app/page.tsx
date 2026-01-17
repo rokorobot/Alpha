@@ -133,7 +133,7 @@ export default async function Home() {
             <a href="#" className="glitch-link">
               MAIL_SERVER
             </a>
-            <a href="#" className="glitch-link">
+            <a href="https://www.youtube.com/@rokorobo" target="_blank" className="glitch-link">
               NET_YOUTUBE
             </a>
             <a href="#" className="glitch-link">
