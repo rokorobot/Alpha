@@ -134,10 +134,13 @@ export default async function Home() {
               MAIL_SERVER
             </a>
             <a href="#" className="glitch-link">
-              NET_LINKEDIN
+              NET_YOUTUBE
             </a>
             <a href="#" className="glitch-link">
-              GIT_HUB_REPO
+              NET_TIKTOK
+            </a>
+            <a href="#" className="glitch-link">
+              SOUND_CLOUD
             </a>
           </div>
           <div className="footer-col status-col">
