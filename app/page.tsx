@@ -136,7 +136,7 @@ export default async function Home() {
             <a href="https://www.youtube.com/@rokorobo" target="_blank" className="glitch-link">
               NET_YOUTUBE
             </a>
-            <a href="#" className="glitch-link">
+            <a href="https://www.tiktok.com/@rokorobotic" target="_blank" className="glitch-link">
               NET_TIKTOK
             </a>
             <a href="#" className="glitch-link">
