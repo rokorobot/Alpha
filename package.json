@@ -28,6 +28,7 @@
     "decap-server": "^3.5.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.2",
+    "netlify-cli": "^23.13.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
