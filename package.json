@@ -11,6 +11,9 @@
     "cms": "concurrently \"npm run dev\" \"npm run proxy\""
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.971.0",
+    "@aws-sdk/s3-request-presigner": "^3.971.0",
+    "dotenv": "^17.2.3",
     "gray-matter": "^4.0.3",
     "netlify-identity-widget": "^1.9.2",
     "next": "16.1.2",
