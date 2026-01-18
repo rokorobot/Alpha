@@ -23,5 +23,5 @@ collections:
       - { label: "Category", name: "category", widget: "string" }
       - { label: "Status", name: "status", widget: "select", options: ["ACTIVE", "ARCHIVED", "PENDING", "COMPLETED", "UNKNOWN"] }
       - { label: "Main Image", name: "mainImage", widget: "image" }
-      - { label: "Project Video (MP4)", name: "projectVideo", widget: "file", required: false }
+      - { label: "Project Video (MP4)", name: "projectVideo", widget: "r2_video", required: false }
       - { label: "Body", name: "body", widget: "markdown" }

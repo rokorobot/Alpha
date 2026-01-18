@@ -1,13 +1,103 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content Manager</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <!-- Include the script that builds the page and powers Netlify CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+
+<body>
+  <!-- Include the script that builds the page and powers Netlify CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    var R2VideoControl = createClass({
+      getInitialState: function () {
+        return { uploading: false, uploadProgress: 0 };
+      },
+      handleChange: function (e) {
+        var file = e.target.files[0];
+        if (!file) return;
+
+        var self = this;
+        self.setState({ uploading: true });
+
+        // 1. Get Presigned URL
+        fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ filename: file.name, contentType: file.type })
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            if (data.error) throw new Error(data.error);
+
+            // 2. Upload to R2
+            return fetch(data.url, {
+              method: 'PUT',
+              body: file,
+              headers: { 'Content-Type': file.type }
+            }).then(function () {
+              // 3. Set value to R2 Public URL
+              var publicUrl = (window.location.hostname === 'localhost' ? 'https://pub-fe41eb1076b045e788498bca003fbdc0.r2.dev' : 'https://pub-fe41eb1076b045e788498bca003fbdc0.r2.dev') + '/' + file.name;
+              self.props.onChange(publicUrl);
+              self.setState({ uploading: false });
+            });
+          })
+          .catch(function (err) {
+            console.error(err);
+            alert('Upload Failed: ' + err.message);
+            self.setState({ uploading: false });
+          });
+      },
+      render: function () {
+        var value = this.props.value;
+        var uploading = this.state.uploading;
+
+        return h('div', { style: { display: 'flex', gap: '10px', alignItems: 'center' } },
+          h('input', {
+            type: 'text',
+            value: value || '',
+            readOnly: true,
+            style: { flex: 1, backgroundColor: '#ddd', color: '#555', cursor: 'not-allowed' },
+            placeholder: 'R2 URL will appear here...'
+          }),
+          h('label', {
+            style: {
+              backgroundColor: uploading ? '#ccc' : '#3a4641',
+              color: '#fff',
+              padding: '8px 12px',
+              borderRadius: '4px',
+              cursor: uploading ? 'wait' : 'pointer',
+              fontSize: '14px',
+              fontWeight: 'bold'
+            }
+          },
+            uploading ? 'UPLOADING...' : 'UPLOAD TO R2',
+            h('input', {
+              type: 'file',
+              style: { display: 'none' },
+              onChange: this.handleChange,
+              accept: 'video/*'
+            })
+          )
+        );
+      }
+    });
+
+    var R2VideoPreview = createClass({
+      render: function () {
+        return h('div', {},
+          this.props.value
+            ? h('video', { src: this.props.value, controls: true, style: { maxWidth: '100%' } })
+            : h('div', {}, 'No Video Uploaded')
+        );
+      }
+    });
+
+    CMS.registerWidget('r2_video', R2VideoControl, R2VideoPreview);
+  </script>
+</body>
+
 </html>
