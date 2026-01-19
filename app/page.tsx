@@ -46,6 +46,11 @@ async function getProjects() {
 export default async function Home() {
   const projects: Project[] = await getProjects();
 
+  const now = new Date();
+  const currentMonth = now.toLocaleString('en-US', { month: 'long' }).toUpperCase();
+  const currentYear = now.getFullYear();
+  const dateString = `${currentMonth} ${currentYear}`;
+
   return (
     <>
       <div className="container hero-card">
@@ -84,7 +89,7 @@ export default async function Home() {
             <div className="primary-info">
               <div className="huge-text">A2</div>
               <div className="sub-info">
-                <div className="date">APRIL 2030</div>
+                <div className="date">{dateString}</div>
                 <div className="dot-matrix"></div>
               </div>
               <h2>
@@ -133,6 +138,9 @@ export default async function Home() {
             <a href="#" className="glitch-link">
               MAIL_SERVER
             </a>
+            <a href="https://open.spotify.com/artist/0dv5Wo6MpRELLago9S45QQ" target="_blank" rel="noopener noreferrer" className="glitch-link">
+              AUDIO_SPOTIFY
+            </a>
             <a href="https://www.youtube.com/@rokorobo" target="_blank" className="glitch-link">
               NET_YOUTUBE
             </a>
@@ -160,7 +168,7 @@ export default async function Home() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>ISC // INDUSTRIAL SIGNAL CORE © 2030</span>
+          <span>ISC // INDUSTRIAL SIGNAL CORE © 2030 ROKOROBOTIC</span>
           <span>END_OF_LINE</span>
         </div>
       </div>
