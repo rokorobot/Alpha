@@ -135,7 +135,7 @@ export default async function Home() {
           <div className="footer-col">
             <h3>SIGNAL TRANSMISSION</h3>
             <p>ESTABLISH CONNECTION:</p>
-            <a href="#" className="glitch-link">
+            <a href="mailto:contact@rokorobo.com" className="glitch-link">
               MAIL_SERVER
             </a>
             <a href="https://open.spotify.com/artist/0dv5Wo6MpRELLago9S45QQ" target="_blank" rel="noopener noreferrer" className="glitch-link">
