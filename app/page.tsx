@@ -66,7 +66,10 @@ export default async function Home() {
                 <div className="tri-inner"></div>
               </div>
               <div className="logo-text">
-                <h1 className="text-[2.5rem] tracking-tighter text-[#8B0000]">RokoRobo</h1>
+                <h1 className="text-[2.5rem] tracking-tighter text-[#8B0000]">
+                  RokoRobo
+                  <span className="text-[0.8rem] tracking-[1px] text-[var(--text-color)] ml-2">.COM</span>
+                </h1>
                 <p>INDUSTRIAL SIGNAL CORE</p>
               </div>
             </div>
