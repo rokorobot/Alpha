@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -138,9 +139,9 @@ export default async function Home() {
           <div className="footer-col">
             <h3>SIGNAL TRANSMISSION</h3>
             <p>ESTABLISH CONNECTION:</p>
-            <a href="mailto:contact@rokorobo.com" className="glitch-link">
-              MAIL_SERVER
-            </a>
+            <Link href="/contact" className="glitch-link">
+              CONTACT_US
+            </Link>
             <a href="https://open.spotify.com/artist/0dv5Wo6MpRELLago9S45QQ" target="_blank" rel="noopener noreferrer" className="glitch-link">
               AUDIO_SPOTIFY
             </a>
